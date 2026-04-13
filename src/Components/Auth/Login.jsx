@@ -14,7 +14,7 @@ const Login = () => {
         setPassword(""); 
     }
 
-    
+      
 
   return (
     <div className='flex h-screen w-screen items-center justify-center '>
@@ -23,7 +23,7 @@ const Login = () => {
         onSubmit={(e)=>{
             submitHandler(e);
         }}
-         className='flex flex-col items-center justify-center'>
+        className='flex flex-col items-center justify-center'>
             <input 
             value={email}
 
@@ -49,4 +49,5 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;
+

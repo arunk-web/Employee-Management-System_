@@ -4,5 +4,13 @@
 
 
 *{
-  background: #000;
+  color: #fff;
+}
+
+body{
+  background-color: #111;
+}
+
+#tasklist::-webkit-scrollbar{
+  display: none;
 }
