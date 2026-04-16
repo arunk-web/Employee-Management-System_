@@ -1,15 +1,73 @@
-import React from 'react'
+import React, {useContext, useEffect, useState } from 'react'
 import Login from './Components/Auth/Login'
 import EmployeeDashboard from './Components/Dashboard/EmployeeDashboard'
 import AdminDashboard from './Components/Dashboard/AdminDashboard'
+import { getLocalStorage, setLocalStorage } from './Utils/LocalStorage'
+import { AuthContext } from './Context/AuthProvider'
 
 const App = () => {
+
+  const[user,setUser] = useState(null);
+  const [loggedInUserData,setloggedInUserData] = useState(null);
+
+  const authData = useContext(AuthContext);
+  // console.log(authData);
+
+  useEffect(()=>{
+    const loggedInUser = localStorage.getItem('loggedInUser')
+
+    console.log(loggedInUser);
+    
+    if(loggedInUser){
+      // console.log('user loggedin hai');
+      
+      const userData = JSON.parse(loggedInUser);
+      // console.log(userData);
+      
+      setUser(userData.role);
+      setloggedInUserData(userData.data);
+    }
+  },[])
+
+  // useEffect(() => {
+
+  //   if(authData){
+  //     const loggedInUser = localStorage.getItem("loggedInUser");
+  //     if(loggedInUser){
+  //       setUser(loggedInUser.role)
+  //     }
+  //   }
+  // },[authData])
+
+  const handleLogin=(email,password) => {
+      if(email == 'admin@me.com' && password == '123'){
+        setUser('admin');
+        localStorage.setItem('loggedInUser',JSON.stringify({role:'admin'}))
+      }
+      else if(authData){
+        const employee = authData.employees.find((e)=> email == e.email && e.password == password);
+        if(employee){
+            setUser('employee');
+            setloggedInUserData(employee)
+            localStorage.setItem('loggedInUser',JSON.stringify({role:'employee',data:employee}))
+        }
+      }
+      else {
+        alert("Invalid Credentials");
+      }
+  }
+
+  
+
+  // handleLogin('admin@me.com','123');
+
+
   return (
     <div>
-      {/* <Login /> */}
+      {!user ? <Login handleLogin = {handleLogin} /> : ''};
+      {user == 'admin' ? <AdminDashboard/> : (user == 'employee' ? <EmployeeDashboard data={loggedInUserData} /> : null)};
       {/* <EmployeeDashboard/> */}
-      <AdminDashboard/>
-
+      {/* <AdminDashboard/> */}
     </div> 
   )
 }
