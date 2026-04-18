@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Header = () => {
+const Header = (props) => {
   // console.log(data);
 
   // const [username,setUsername] = useState('');
@@ -11,6 +11,13 @@ const Header = () => {
   // else {
   //   setUsername(data.firstName);
   // }
+    const logOutUser = () => {
+      localStorage.setItem('loggedInUser','')
+      props.changeUser('');
+      
+      // window.location.reload();
+    }
+  
 
   return (
     <div className='flex items-end justify-between'>
@@ -19,7 +26,7 @@ const Header = () => {
             <span className='text-3xl font-semibold'>username</span>
         </h1>
 
-        <button onClick={ logOutUsers } className='bg-red-600 text-lg font-medium text-white px-5 py-2 rounded-sm'>
+        <button onClick={logOutUser} className='bg-red-600 text-lg font-medium text-white px-5 py-2 rounded-sm'>
             Log Out
         </button>
 
