@@ -22,6 +22,7 @@ const CreateTask = () => {
         
         // console.log(task);
         const data = userData
+        // const data = userData.employees
         // console.log(data);
         
 
@@ -39,7 +40,7 @@ const CreateTask = () => {
         console.log(data);
         
 
-        localStorage.setItem('employees',JSON.stringify(data))
+        // localStorage.setItem('employees',JSON.stringify(data))
         
         
 
